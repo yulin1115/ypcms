@@ -1,0 +1,149 @@
+<include file="Public:header" />
+<table cellspacing=0 cellpadding=0 width="100%" border=0>
+<tbody >
+  <tr>
+<include file="Public:left" />    
+<td id=container valign=top align=left>
+<!--加载各个模块main部分-->
+
+<style>
+select{width:210px}
+</style>
+<SCRIPT LANGUAGE="JavaScript">
+ $(function(){
+        $('#sortadd').ajaxForm({
+            success:       addcomplete,  // post-submit callback
+            dataType: 'json'
+        });
+        function addcomplete(data){
+            if (data.status==1){
+				$('#sortadd').resetForm();
+                showMessage(data.info,4000,211,111,'dui');
+				setTimeout("window.location = '{:U('index')}'",3000);
+                // 更新列表
+            }else{
+                showMessage(data.info,4000,211,111,'cuo');
+            }
+        }
+
+    });
+	
+function getsort(){
+	$.get("{:U('Ypadmin/Ajax/getsort')}",{mid:$('#mid').val()},complete);
+	//alert($('#mid').val());
+    if($('#mid').val()==1){
+	    document.getElementById("hid").style.display='';
+    }else{
+	    document.getElementById("hid").style.display='none';
+    }
+}
+            
+function complete(data){
+	if (data.status==1){
+		var obj = document.getElementById("spid");
+        obj.options.length = 1;
+		//alert(data.list);
+		var list=data.list;
+        for (i=0;i <= list.length;i++){
+			var obj = document.getElementById("spid");
+            var opt=new Option(list[i].cname,list[i].id);
+            obj.add(opt);
+		}
+	}
+}
+</script>
+<div id="smalltab_container"></div>
+	<div class="smalltab_line"></div>
+	<div id="t1">
+	<div class="tt">注意事项</div>
+	<table cellpadding="2" cellspacing="1" class="tb">
+	<tr>
+	<td>&nbsp;&nbsp;&nbsp;1、上传图片后如想重新上传,请先删除上传的饿图片,以免无用图片的堆积!</td>
+	</tr>
+	</table>
+	
+	<div class="div_clear" style="height:10px;"></div>
+	<form id="sortadd"  method="post"  action="{:U('insert')}" >
+    <input type="hidden" name="ajax" value="1">
+	<div class="tt">基本信息</div>
+	<table cellpadding="2" cellspacing="1" class="tb" id="tablebg">
+	<tr>
+	<td class="tl">所属模型:</td>
+	<td id="catid" class="t2">
+    <select name="mid" id="mid" style="width:206px;" onchange="getsort()" >
+    <option value="-1">请选择模型</option>
+    <foreach name="modules" item="modules">
+    <option value="{$modules.id}">{$modules.name}</option>
+    </foreach>
+    </select>
+    
+    </td>
+	<td class="t2"><font color="#990000">*</font>必选</td>
+	</tr>
+	<tr>
+	<td class="tl">所属分类:</td>
+	<td id="catid" class="t2">
+    <select name="spid" id="spid" style="width:206px;">
+    <option value="0">作为一级栏目</option>
+    </select>
+    </td>
+	<td class="t2"><font color="#990000">*</font>必填</td>
+	</tr>    
+	<tr>
+	<td class="tl">分类名称:</td>
+	<td class="t2"><input type="text" id="inputs2" name="sname"   value="" />
+	</td><td class="t2"></td>
+	</tr>
+<!--	<tr>
+	<td class="tl">连接地址:</td>
+	<td id="catid" class="t2"><input type="text" size="10" class="inputs2" name="url" id="url"  value="" /></td>
+	<td class="t2"></td>
+	</tr>-->
+	<tr>
+	<td class="tl">排序:</td>
+	<td id="catid" class="t2"><input type="text" size="10" id="inputs2" name="order"   value="" /></td>
+	<td class="t2"></td>
+	</tr>
+    <tr>
+	<td class="tl">选择模板:</td>
+	<td class="t2"><input type="text"  name="tpl"  id="inputs2"  value="" /> </td>
+	<td class="t2"></td>
+	</tr>  
+    <tr>
+    <script language="javascript" type="text/javascript" src="__PUBLIC__/plug/My97DatePicker/WdatePicker.js"></script>
+	<td class="tl">发布时间:</td>
+	<td class="t2"><input class="Wdate" type="text" onClick="WdatePicker()" name="creattime"   value="" /> </td>
+	<td class="t2"><font color="#990000">*</font>必填</td>
+	</tr>
+    <tr id="hid" style="display:none">
+ 	<td class="tl">是否作为导航:</td>
+	<td class="t2"><input id="nav1" name="nav" type="radio" value="1" /><label for="nav1" >是</label> &nbsp;&nbsp;&nbsp; <input id="nav2" name="nav" type="radio" value="0" checked="checked" /><label for="nav2" >否</label></td>
+	<td class="t2"></td>
+	</tr>  
+    <tr>  
+	
+	</table>
+    <div class="div_clear" style="height:10px;"></div>
+    <div class="tt">详细信息</div>
+    <table cellpadding="2" cellspacing="1" class="tb" id="tablebg">
+	<tr>
+	<td class="tl">内容备注:</td>
+	<td id="catid" class="t2">{$editor}</td>
+	<td class="t2"></td>
+	</tr>    
+	</table>
+    
+	
+	
+	
+   
+	<div class="div_clear" style="height:10px;"></div>
+	<input class="button_css" type="submit" name="submit" id="submit" value="发  布" />
+	</form>
+	</div>
+
+	
+
+
+</td>
+<include file="Public:footer" />

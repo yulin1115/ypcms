@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>YIPU.CMS</title>
+<link href="__PUBLIC__/Ypadmin/css/style.css" type=text/css rel=stylesheet>
+<link href="__PUBLIC__/Ypadmin/css/style1.css" type=text/css rel=stylesheet>
+<link href="__PUBLIC__/Ypadmin/css/css-main.css" type=text/css rel=stylesheet> 
+<load href="__PUBLIC__/Js/Window/ctunion.js" /> 
+<load href="__PUBLIC__/Ypadmin/jquery/jquery.min.js" /> 
+<load href="__PUBLIC__/Js/Jquery/jquery.form.js" />
+<load href="__PUBLIC__/Js/Window/alertdiv.js" />
+</head>
+<body>
+<div class="center">
+
+<table id=header cellspacing=0 cellpadding=0 width="100%" border=0>
+  <tbody>
+  <tr>
+    <td width="9" id="headerleft"></td>
+    <td width="125"  class="logo" align="left"><a href="{:U('Index/index')}" title="返回管理首页"></a></td>
+    <td class="vesion" width="400">欢迎:&nbsp;&nbsp;{$user}&nbsp;&nbsp;<img src="__PUBLIC__/Ypadmin/images/users.png" align="absmiddle" />&nbsp;&nbsp;<if condition="$user eq admin">顶级管理员<else/>{$username}</if></SPAN></td>
+    <td  class="home" align="left"><a href="../" target="_blank" title="在新窗口浏览我的blog">
+    
+    </a></td>
+    <td align=right nowrap class="headtext">
+    <div style=" height:40px; line-height:40px;">
+    <img src="__PUBLIC__/Ypadmin/images/home.gif" align="absmiddle" />
+    <a href="{:U('/Index/index')}" target="_blank">返回首页</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+    <img src="__PUBLIC__/Ypadmin/images/reload.gif" align="absmiddle" />
+	<a href="{:U('User/personaledit')}">修改密码</a>&nbsp;&nbsp;|&nbsp;&nbsp;    
+    <img src="__PUBLIC__/Ypadmin/images/revert.gif" align="absmiddle" />
+	<a href="db" >数据库备份</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+    <img src="__PUBLIC__/Ypadmin/images/reload.gif" align="absmiddle" />
+	<a href="admin.php?inc=main&action=writeCache">更新缓存</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+    <img src="__PUBLIC__/Ypadmin/images/refresh.png" align="absmiddle" />
+	<a href="javascript:window.location.reload();">刷新</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+    <img src="__PUBLIC__/Ypadmin/images/back.gif" align="absmiddle" />
+    <a href="javascript:history.go(-1);">返回</a>&nbsp;&nbsp;|&nbsp;&nbsp;	
+    <img src="__PUBLIC__/Ypadmin/images/home.gif" align="absmiddle" />
+    <a href="{:U('Public/logout')}" target="_self">退出</a>&nbsp;&nbsp;&nbsp;&nbsp;	
+    </div>
+    </td>
+    <td width="9" id="headerright" ></td>
+	</tbody>
+</table>

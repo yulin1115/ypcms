@@ -1,0 +1,95 @@
+<include file="Public:header" />
+<table cellspacing=0 cellpadding=0 width="100%" border=0>
+<tbody >
+  <tr>
+<include file="Public:left" />    
+<td id=container valign=top align=left>
+<!--鍔犺浇鍚勪釜妯″潡main閮ㄥ垎-->
+
+<style>
+select{width:210px}
+</style>
+<SCRIPT LANGUAGE="JavaScript">
+ $(function(){
+        $('#impower').ajaxForm({
+            success:       complete,  // post-submit callback
+            dataType: 'json'
+        });
+        function complete(data){
+            if (data.status==1){
+                showMessage(data.info,4000,211,111,'dui');
+				setTimeout("window.location = '{:U('index')}'",3000);
+                // 鏇存柊鍒楄〃
+            }else{
+                showMessage(data.info,4000,211,111,'cuo');
+            }
+        }
+
+    });
+</script>
+<div id="smalltab_container"></div>
+	<div class="smalltab_line"></div>
+	<div id="t1">
+	<div class="tt">娉ㄦ剰浜嬮」</div>
+	<table cellpadding="2" cellspacing="1" class="tb">
+	<tr>
+	<td>&nbsp;&nbsp;&nbsp;1銆佸鏋滀綘瀵硅瀵硅薄閫夋嫨浜嗘巿鏉冿紝閭ｄ箞涔熷繀椤诲璇ュ璞＄殑涓婁竴绾у璞¤繘琛屾巿鏉冿紝鍥犱负浣犲彧鏈夛紝鏈夋潈杩涘叆浜嗕笂涓�绾э紝鎵嶈兘瀵逛笅绾ц繘琛屾搷浣滐紒</td>
+	</tr>
+	</table>
+	
+	<div class="div_clear" style="height:10px;"></div>
+	<form id="impower" method="post"  action="{:U('replace')}">
+    <input type="hidden" name="ajax" value="1">
+    <input type="hidden" name="id" value="{$Think.get.id}" >
+	<div class="tt">鍩烘湰淇℃伅</div>
+	<table cellpadding="2" cellspacing="1" class="tb" id="tablebg">      
+    <tr>
+    <td class="tl">鏉冮檺:</td>
+    <td class="t2">
+    <!--宓屽寰幆-->
+	<div style="width:100%">
+    
+    <!--涓�绫诲紑濮�--><foreach name="nodetrees" item="tree">
+    <div style="width:100%; height:20px;">
+    <input class="checkbox_css"  <if condition="strpos($tree['access'],$tree['id'].'.') gt -1 ">checked="checked"</if> type="checkbox" name="aids[]" value="{$tree.id}" id="tree{$tree.id}">&nbsp;<label for="tree{$tree.id}">{$tree.title}</label>
+    </div>
+
+    <!--浜岀被寮�濮�--><foreach name="tree['children']" item="tree1">
+    <div style="width:95%; margin-left:4%; ">
+    <div style="width:100%; height:20px; ">
+    <input class="checkbox_css" <if condition="strpos($tree1['access'],$tree1['id'].'.') gt -1 ">checked="checked"</if> type="checkbox" name="aids[]" value="{$tree1.id}" id="tree1{$tree1.id}">&nbsp;<label for="tree1{$tree1.id}">{$tree1.title}</label>
+    </div>
+    <div style="width:95%; margin-left:4%; height:20px;">
+    <ul>
+    
+    <!--涓夌被寮�濮�--><foreach name="tree1['children']" item="tree2">
+    <li style="list-style:none; float:left; width:100px; border-bottom:1px dashed #CCC">
+    <input class="checkbox_css" <if condition="strpos($tree2['access'],$tree2['id'].'.') gt -1 ">checked="checked"</if> type="checkbox" name="aids[]" value="{$tree2.id}" id="tree2{$tree2.id}">&nbsp;<label for="tree2{$tree2.id}">{$tree2.title}</label>
+    </li>
+    <!--涓夌被缁撴潫--></foreach> 
+    
+    </ul>
+    </div>
+    <div style="clear:both"></div>
+    </div>
+    <!--浜岀被缁撴潫--></foreach>
+    
+    <!--涓�绫荤粨鏉�--></foreach>   
+    </div>
+    <!--宓屽寰幆-->
+	</td><td class="t2"></td>
+	</tr>        
+    </table>	
+   
+	<div class="div_clear" style="height:10px;"></div>
+	<input class="button_css" type="submit" name="submit" id="submit"  value="鎺�  鏉�" />
+	</form>
+	</div>
+	
+	<div id="t2"></div>
+	<div id="t3"></div>
+	
+
+
+</td>
+<include file="Public:footer" />

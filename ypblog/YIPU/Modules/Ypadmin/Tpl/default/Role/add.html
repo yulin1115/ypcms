@@ -1,0 +1,77 @@
+<include file="Public:header" />
+<table cellspacing=0 cellpadding=0 width="100%" border=0>
+<tbody >
+  <tr>
+<include file="Public:left" />    
+<td id=container valign=top align=left>
+<!--加载各个模块main部分-->
+
+<style>
+select{width:210px}
+</style>
+<SCRIPT LANGUAGE="JavaScript">
+ $(function(){
+        $('#roleadd').ajaxForm({
+            success:  complete,  // post-submit callback
+            dataType: 'json'
+        });
+        function complete(data){
+            if (data.status==1){
+				$('#roleadd').resetForm();
+                showMessage(data.info,4000,211,111,'dui');
+				setTimeout("window.location = '{:U('index')}'",3000);
+                // 更新列表
+            }else{
+                showMessage(data.info,4000,211,111,'cuo');
+            }
+        }
+
+    });
+</script>
+<div id="smalltab_container"></div>
+	<div class="smalltab_line"></div>
+	<div id="t1">
+	<div class="tt">注意事项</div>
+	<table cellpadding="2" cellspacing="1" class="tb">
+	<tr>
+	<td>&nbsp;&nbsp;&nbsp;1、上传图片后如想重新上传,请先删除上传的饿图片,以免无用图片的堆积!</td>
+	</tr>
+	</table>
+	
+	<div class="div_clear" style="height:10px;"></div>
+	<form id="roleadd" method="post"  action="{:U('insert')}">
+    <input type="hidden" name="ajax" value="1">
+	<div class="tt">基本信息</div>
+	<table cellpadding="2" cellspacing="1" class="tb" id="tablebg">
+	<tr >
+	<td class="tl">状态:</td>
+	<td id="catid" class="t2"><select name="catid" id="select" style="width:206px;">
+    <option value="1">正常</option>
+    <option value="0">禁用</option>
+    </select></td>
+	<td class="t2"><font color="#990000">*</font>必填</td>
+	</tr>    
+	<tr >
+	<td class="tl">分组名:</td>
+	<td class="t2"><input type="text"  class="text_css" id="user" name="user"  style="height:16px;padding:2px; width:200px; "  value="" />
+	</td><td class="t2"><font color="#990000">*</font>必填</td>
+	</tr>  
+	<tr >
+	<td class="tl">备注:</td>
+	<td class="t2"><input type="text"  class="text_css" id="beizhu" name="beizhu"  style="height:16px;padding:2px; width:200px; "  value="" />
+	</td><td class="t2"></td>
+	</tr>             
+    </table>	
+   
+	<div class="div_clear" style="height:10px;"></div>
+	<input class="button_css" type="submit" name="submit" id="submit"  value="新  增" />
+	</form>
+	</div>
+	
+	<div id="t2"></div>
+	<div id="t3"></div>
+	
+
+
+</td>
+<include file="Public:footer" />

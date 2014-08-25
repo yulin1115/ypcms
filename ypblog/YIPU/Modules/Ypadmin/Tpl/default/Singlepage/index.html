@@ -1,0 +1,127 @@
+<include file="Public:header" />
+<SCRIPT LANGUAGE="JavaScript">
+function ajaxs_del(){
+		var btns=[
+			{value:" 确 认 ",onclick:"dels()",focus:true},
+			{value:" 取 消 ",onclick:"popwin.close()"}
+		];
+		popwin.showDialog(3,"确认","您选择了批量操作，该操作的完成可能需要等待一些时间。<br />是否确认继续？",btns,320,130);
+}
+function ajax_del(id){
+		var btns=[
+			{value:" 确 认 ",onclick:"del("+id+")",focus:true},
+			{value:" 取 消 ",onclick:"popwin.close()"}
+		];
+		popwin.showDialog(3,"确认","您选择了单个删除操作，你真的要删除文档吗。<br />是否确认继续？",btns,320,130);
+}
+function dels(){
+    var userValue = "";
+    $("input[name='aids']").each(function(i) {
+        if ($(this).attr("checked")) {
+            userValue += $(this).val() + "YIPU";
+        }
+    });
+	userValue = userValue.substring(0, userValue.length - 1);
+	   //alert(userValue);
+    $.post("{:U('del')}",{aids:userValue},complete); 
+	popwin.close();
+}
+function del(id){
+	 $.get("{:U('del')}",{id:id},complete);
+	 popwin.close();
+}
+function complete(data){
+    if (data.status==1){
+        showMessage(data.info,4000,211,111,'dui');
+		setTimeout("window.location = '{:U('index')}'",3000);
+    }else{
+        showMessage(data.info,4000,211,111,'cuo');
+    }
+}
+</script>
+<table cellspacing=0 cellpadding=0 width="100%" border=0>
+<tbody >
+  <tr>
+<include file="Public:left" />    
+<td id=container valign=top align=left>
+<!--加载各个模块main部分-->
+	<div id="t1">
+
+	<form id="dataForm" onsubmit="return false;">
+    <input type="hidden" name="ajax" value="1">
+    <div class="tt">查询筛选</div>
+    <table cellpadding="2" cellspacing="1" class="tb">
+	<tr>
+	<td style="padding:5px">
+    <div style="width:40%; float:left; line-height:">
+    <a class="td_5_1a" href="{:U('add')}"><img src="__PUBLIC__/Ypadmin/images/icon_add.gif"   class="imgpt4"/> <span class="">添加单页</span></a>&nbsp;&nbsp;
+    <a class="td_5_1a" href="javascript:ajaxs_del()"><img src="__PUBLIC__/Ypadmin/images/close.gif"   class="imgpt4"/> <span class="">删除单页</span></a>&nbsp;&nbsp;    
+	<a class="td_5_1a" href="admin.php?type=ExtraModule&inc=portalchannel&action=set"><img src="__PUBLIC__/Ypadmin/images/icon_add.gif"   class="imgpt4"/> <span class="">缓存数据</span></a>&nbsp;&nbsp;
+    </div>
+    <input type="hidden" value="" id="cid" />
+	<div align="center" id="searchs"> 
+   	    <span style="font-weight:bold; margin-left:0px; float:left; border-right:2px dotted #CCC; padding-right:10px">
+        	<input class="cxinputs" type="text" size="20" value="" id="keyword" />
+        </span>
+    	
+     </div>
+    </td>
+	</tr>
+	</table>
+	<div class="div_clear" style="height:10px;"></div>
+	<table cellpadding="2" cellspacing="1" class="tb" id="contentTb">
+	<tr>
+	<th><input type="checkbox" onclick="selectall(this.checked)" class="checkbox_css" /></th>
+	<th>ID</th>
+    <th>排序</th>
+	<th>名称</th>
+	<th>标题</th>
+	<th>状态</th>
+	<th>添加时间</th>
+	<!--<th>点击</th>
+	<th>作者</th>
+	<th>更新时间</th>-->
+	<th>操作</th>
+	</tr>
+    <foreach name="single" item="single">
+	<tr onmouseover="this.className='on';" onmouseout="this.className='';" align="">
+	<td width="20px"><input class="checkbox_css" type="checkbox" name="aids" value="{$single.id}"></td>
+	<td width="80px">{$single.id}</td>
+	<td><input type="text" size="6" value="{$single.paixu}" name="ordernum[]" class="text_css" /></td>
+	<td>{$single.name}</td>
+	<td>{$single.title}</td>
+    <td><if condition="$single.status eq 2 ">通过<elseif condition="$single.status eq 1"/><font color="#999999">待审...</font></if></td>
+    <td>{$single.creattime|mdate}</td>
+    <td style="vertical-align:middle" width="45px">
+	<a href="{:U('edit?id='.$single['id'])}"><img src="__PUBLIC__/Ypadmin/images/addblog.gif" align="absmiddle" title="编辑"/></a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="javascript:ajax_del({$single.id})"><img src="__PUBLIC__/Ypadmin/images/close.gif" align="absmiddle" title="删除"/></a>	
+    </td>
+	</tr>
+    </foreach>     
+	
+	
+	</table>
+	<div class="div_clear" style="height:10px;"></div>
+
+	
+	</form>
+    </div>
+	<script>
+	function selectall(b){
+		var oForm=document.getElementById("dataForm");
+		for (var i = 0; i < oForm.elements.length; i++) {
+			if(oForm.elements[i].type=="checkbox"&&!oForm.elements[i].disabled){
+				oForm.elements[i].checked = b;
+			}
+		}
+	}
+
+	</script>
+	
+
+
+
+
+
+</td>
+<include file="Public:footer" />

@@ -1,0 +1,91 @@
+<include file="Public:header" />
+<table cellspacing=0 cellpadding=0 width="100%" border=0>
+<tbody >
+  <tr>
+<include file="Public:left" />    
+<td id=container valign=top align=left>
+<!--加载各个模块main部分-->
+
+<style>
+select{width:210px}
+</style>
+<SCRIPT LANGUAGE="JavaScript">
+ $(function(){
+        $('#userupdate').ajaxForm({
+            success:  complete,  // post-submit callback
+            dataType: 'json'
+        });
+        function complete(data){
+            if (data.status==1){
+				$('#userupdate').resetForm();
+                showMessage(data.info,4000,211,111,'dui');
+				setTimeout("window.location = '{:U('Index/index')}'",3000);
+                // 更新列表
+            }else{
+                showMessage(data.info,4000,211,111,'cuo');
+            }
+        }
+
+    });
+</script>
+<div id="smalltab_container"></div>
+	<div class="smalltab_line"></div>
+	<div id="t1">
+	<div class="tt">注意事项</div>
+	<table cellpadding="2" cellspacing="1" class="tb">
+	<tr>
+	<td>&nbsp;&nbsp;&nbsp;1、上传图片后如想重新上传,请先删除上传的饿图片,以免无用图片的堆积!</td>
+	</tr>
+	</table>
+	
+	<div class="div_clear" style="height:10px;"></div>
+	<form id="userupdate" method="post"  action="{:U('userupdate')}">
+    <input type="hidden" name="id" value="{$edit.id}"><!-- save（）操作必须添加此隐藏域  -->
+    <input type="hidden" name="nickname" value="{$edit.nickname}"><!-- save（）操作必须添加此隐藏域  -->    
+    <input type="hidden" name="username" value="{$edit.account}">
+    <input type="hidden" name="hideemail" value="{$edit.email}">
+    <input type="hidden" name="ajax" value="1">
+	<div class="tt">基本信息</div>
+	<table cellpadding="2" cellspacing="1" class="tb" id="tablebg">   
+	<tr >
+	<td class="tl">用户名:</td>
+	<td class="t2"><input type="text"  class="text_css" id="user" name="account" readonly="readonly"  style="height:16px;padding:2px; width:200px; "  value="{$edit.account}" />
+	</td><td class="t2"><font color="#990000">*</font>必填</td>
+	</tr> 
+	<tr >
+	<td class="tl">密码:</td>
+	<td class="t2"><input type="password"  class="text_css" id="pw" name="password" style="height:16px;padding:2px; width:200px; "  value="" />
+	</td><td class="t2"><font color="#990000">*</font>必填</td>
+	</tr> 
+	<tr >
+	<td class="tl">确认密码:</td>
+	<td id="catid" class="t2"><input type="password" size="10" id="repw" name="repw" style="height:16px;padding:2px; width:200px; "  value="" /></td>
+	<td class="t2"><font color="#990000">*</font>必填</td>
+	</tr>
+	<tr >
+	<td class="tl">邮箱:</td>
+	<td class="t2"><input type="text"  class="text_css" id="em" name="email" style="height:16px;padding:2px; width:200px; " value="{$edit.email}" />
+	</td><td class="t2"></td>
+	</tr>  
+	<tr >
+	<td class="tl">备注:</td>
+	<td class="t2"><input type="text"  class="text_css" id="beizhu" name="remark"  style="height:16px;padding:2px; width:200px; "  value="{$edit.remark}" />
+	</td><td class="t2"></td>
+	</tr>        
+    </table>
+
+	
+	
+   
+	<div class="div_clear" style="height:10px;"></div>
+	<input class="button_css" type="submit" name="submit" id="submit" onclick="user_update();" value="修  改" />
+	</form>
+	</div>
+	
+	<div id="t2"></div>
+	<div id="t3"></div>
+	
+
+
+</td>
+<include file="Public:footer" />

@@ -1,0 +1,69 @@
+<include file="Public:header" />
+<table cellspacing=0 cellpadding=0 width="100%" border=0>
+<tbody >
+  <tr>
+<include file="Public:left" />    
+<td id=container valign=top align=left>
+<!--加载各个模块main部分-->
+
+<style>
+select{width:210px}
+</style>
+<SCRIPT LANGUAGE="JavaScript">
+ $(function(){
+        $('#configupdate').ajaxForm({
+            beforeSubmit:  checkForm,  // pre-submit callback
+            success:       complete,  // post-submit callback
+            dataType: 'json'
+        });
+        function checkForm(){
+
+        }
+        function complete(data){
+            if (data.status==1){
+                showMessage(data.info,4000,211,111,'dui');
+				//window.location = "{:U('index')}";
+				setTimeout("window.location = '{:U('index')}'",3000);
+				
+                // 更新列表
+            }else{
+                showMessage(data.info,4000,211,111,'cuo');
+            }
+        }
+
+    });
+</script>
+<div id="smalltab_container"></div>
+	<div class="smalltab_line"></div>
+	<div id="t1">
+	<div class="tt">注意事项</div>
+	<table cellpadding="2" cellspacing="1" class="tb">
+	<tr>
+	<td>&nbsp;&nbsp;&nbsp;1、上传图片后如想重新上传,请先删除上传的饿图片,以免无用图片的堆积!</td>
+	</tr>
+	</table>
+	<div class="div_clear" style="height:10px;"></div>
+    <form id="configupdate" method='post' action="{:U('configupdate')}">
+    <input type="hidden" name="ajax" value="1">
+	<div class="tt">基本信息</div>
+	<table cellpadding="2" cellspacing="1" class="tb" id="tablebg">
+    <volist name="config" id="config">
+	<tr >
+	<td class="tl">{$config.name}:</td>
+	<td id="catid" class="t2"><input type="text" size="10" id="inputs2" name="config[{$config.name}]"   value="{$config.value}" /></td>
+	<td class="t2">{$config.remark}</td>
+    </tr>
+    </volist>       
+	</table>
+	<div class="div_clear" style="height:10px;"></div>
+	<input class="button_css" type="submit" name="submit" id="submit" value="更  新" />
+	</form>
+	</div>
+	
+	<div id="t2"></div>
+	<div id="t3"></div>
+	
+
+
+</td>
+<include file="Public:footer" />

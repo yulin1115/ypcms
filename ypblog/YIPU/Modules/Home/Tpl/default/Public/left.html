@@ -1,0 +1,106 @@
+<style>
+a.tag {
+	 float:left;
+	background-color: #E0EAF1;
+    border-bottom: 1px solid #3E6D8E;
+    border-right: 1px solid #7F9FB6;
+    color: #3E6D8E;
+    font-size: 8pt;
+    -webkit-text-size-adjust:none;
+    margin: 0px 3px 4px 0;
+    padding: 2px 4px;
+    text-decoration: none;
+    white-space: nowrap;
+	height:14px; line-height:14px;
+}
+a.tag em {font-style:normal;color:#666;font-size:7pt; margin-left:2px;}
+a.tag:hover {background-color:#3E6D8E;color:#fff; text-decoration:none}
+a.tag:hover em {color:#fff;}
+.Tags a.project {background-color: #cfc; color:#060;}
+.Tags a.project:hover {background-color:#40AA53;color:#fff;}
+</style>
+        <div id="sidebar">
+			<ul>
+				<li>
+					<div id="search" >
+					<form method="post" action="{:U('Archive/search')}">
+						<div>
+							<input type="text" name="search" id="search-text" value="" />
+							<input type="submit" id="search-submit" value="GO" />
+						</div>
+					</form>
+					</div>
+					<div style="clear: both;">&nbsp;</div>
+				</li>
+                <!--一类开始--><foreach name="menus" item="menus1">
+				<li>
+					<h2><if condition="$menus1.pointmodule neq null "> <a href="{:U(''.$menus1['pointmodule'].'/'.$menus1['url'])}">{$menus1.name}</a><else />{$menus1.name}</if> </h2>
+                    <!--判断是否有子类开始-->
+                    <if condition="$menus1.children ">
+                    <ul>
+                    <!--二类开始--><foreach name="menus1['children']" item="menus2">
+						<li><a href="{:U(''.$menus2['pointmodule'].'/'.$menus2['url'])}">{$menus2.name}</a></li>
+                                                          <if condition="$menus2.children ">
+              
+                    <!--二类开始--><foreach name="menus2['children']" item="menus3">
+						<li>└ <a href="{:U(''.$menus3['pointmodule'].'/'.$menus3['url'])}">{$menus3.name}</a></li>
+                    <!--二类开始--></foreach>
+			
+                    </if>
+                    <!--二类开始--></foreach>
+					</ul>
+                    <else />
+                    <!--判断是否有子类结束-->
+					
+                    <if condition="$menus1.content neq null ">
+                    <p>
+                    {$menus1.content}
+                    </p>
+                    <else />
+                    <div style="width:215px; margin-left:25px;">
+                    <ul>
+                    <foreach item="taglist" name="taglist">
+                    <a class="tag" title="{$taglist.name}" href="{:U('Tag/'.$taglist['name'])}">{$taglist.name}<em>({$taglist.count})</em></a>
+                    </foreach>
+                    <div style=" clear:both"></div>  
+                    </ul>
+                    </div>
+                              
+                    </if>
+				    </if>
+                </li>
+                <!--一类结束--></foreach>
+<!--				<li>
+					<h2> <a href="#">模块0</a> </h2>
+					<ul>
+						<li><a href="#">{$Activities.title}</a></li>
+
+					</ul>
+				</li>
+				<li>
+					<h2>模块1</h2>
+					<ul>
+  
+						<li><a href="#">{$Blogroll.title}</a></li>
+
+					</ul>
+				</li>
+				<li>
+					<h2><a href="#">模块2</a></h2>
+					<ul>
+
+						<li><a href="#">{$Archives.title}</a></li>
+   
+					</ul>
+				</li>
+                <li>
+					<h2> <a href="#">模块3</a>  </h2>
+					<p>人人尽说江南好，游人只合江南老。 春水碧于天，画船听雨眠。垆边人似月，皓腕凝霜雪。未老莫还乡，还乡须断肠。</p>
+				</li>
+                <li>
+					<h2> <a href="#">模块4</a>   </h2>
+					<p>如果您有什么好的建议，或者您有什么问题，请您给我留言，或者直接QQ联系我，谢谢。</p>
+				</li>  -->              
+                
+			</ul>
+		</div>

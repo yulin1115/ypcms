@@ -1,0 +1,51 @@
+<include file="Public:header" />
+<script>
+$("pre").remove(".brush"); 
+</script>
+	<div id="page">
+	<div id="page-bgtop">
+	<div id="page-bgbtm">
+		<div id="content">
+        
+        
+      <foreach item="list" name="list">
+	  <div class="post">
+				<h2 class="title"><a href="{:U('Archive/'.$list['id'])}">{$list.title}</a></h2>
+			<div class="meta">
+            <span class="date">Publish by 怿朴 {$list.creattime|mdate}</span>
+            <span class="posted" style="height:24px;  width:200px;">
+                <if condition="$list['taglist']">
+                    <foreach item="taglistinfo" name="list['taglist']">
+                    <li style="float:right; height:24px">
+                    <a  class="tag" title="{$taglistinfo.name}" href="{:U('Tag/'.$taglistinfo['name'])}">{$taglistinfo.name}</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </li>
+                    
+                    </foreach>
+                </if>             
+            </span>
+            <div style="clear:both;"></div>
+            </div>
+	  <div style="clear:both;"></div>
+				<div class="entry">
+                    {$list.newcontent|msubstr=0,130,'utf-8',true}
+				</div>
+                <div class="links"><a href="{:U('Archive/'.$list['id'])}">Read More</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;<a href="{:U($list['id'].'#review')}">Comments</a></div>
+			</div>
+        </foreach> 
+    
+          <div class="page_css"  style="width:100%; height:48px; text-align:center;  line-height:48px;" >
+
+			  {$page}
+		  </div>
+		<div style="clear: both;">&nbsp;</div>
+		</div>
+		<!-- end #content -->
+<include file="Public:left" /> 
+		<!-- end #sidebar -->
+		<div style="clear: both;">&nbsp;</div>
+	</div>
+	</div>
+	</div>
+	<!-- end #page -->
+    <include file="Public:footer" />  
+</div>

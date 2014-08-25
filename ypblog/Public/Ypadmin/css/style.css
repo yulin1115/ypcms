@@ -1,0 +1,32 @@
+#wrap{background:url(../images/top_01.png) center bottom no-repeat;height:170px;}
+#wrapb{background:url(../images/top_02.png) center  top no-repeat;height:15px;}
+#wrapc{background:url(../images/top_03.png) center  top no-repeat;height:350px;}
+#logo{background:url(../images/logo.png) center top no-repeat;height:64px;width:210px;}
+a{color:#2A9DDB; text-decoration:none;}
+a:hover{color:#333; text-decoration:none}
+#header{ background:url(../images/top_mid.gif) repeat-x; color:#FFFFFF; height:40px; margin-bottom:10px;}
+#headerleft{ background: url(../images/top_left.png) no-repeat;}
+#headerright{background: url(../images/top_right.png) no-repeat right top;}
+#header a{color:#FFF; text-decoration:none}
+#header a:hover{color:#CCC; text-decoration:none}
+#header .logo a{ text-indent:-9999px; height:40px; width:120px; background:url(../images/logo.png) no-repeat; display:block; outline: none;}
+#header .logo_member a{ text-indent:-9999px; height:40px; width:120px; background:url(../images/logo_member.png) no-repeat; display:block; outline: none;}
+#header .vesion{font-size:12px; padding:0px 10px 0 5px; color: #FFFFFF; font-weight:bold}
+#header .home{font-size:15px; padding-left:15px;}
+/*侧边栏*/
+#sidebar{background-position:left top; background-image:url(../images/sidebar_bg.gif);width:134px; background-repeat:repeat-y; text-align:center}
+#sidebar a{color:#333; text-decoration:none; display:block;}
+#sidebar a:hover{color:#2A9DDB; text-decoration:none;}
+#sidebar a:active{ text-decoration:none; padding:1px 0px 0px 1px}
+#sidebartop{background:url(../images/sidebar_bg_t.gif) no-repeat; width:134px; font-size:4px; height:4px}
+#sidebarBottom{font-size:5px; background:url(../images/sidebar_bg_b.gif) no-repeat bottom; width:134px;height:5px}
+#sidebar .coment_number{background: url(./images/coment_numbg.gif) no-repeat 1px 1px;font-size:9px;position: relative; margin-top:-32px; height:30px; width:20px; float:right; margin-right:20px;_margin-right:10px;}
+#sidebar .coment_number a ,#sidebar .coment_number a:hover{ color:#FFFFFF; height:20px;font-weight:bold}
+.sidebarmenu{background:url(../images/sidebar_bg_a.gif) center no-repeat; width:134px; padding-top:4px; letter-spacing:0.2em; height:24px; color:#FFF; cursor:pointer; font-weight:bold}
+.sidebarsubmenu{ background:url(../images/sidebar_menubg.gif) repeat-x; width:124px; padding-top:3px;height:22px;margin:auto;}
+.sidebarsubmenu1{background: url(../images/sidebar_current_menubg.gif) repeat-x; width:103px; padding-top:3px; height:22px; margin:auto;}
+/*分页*/
+.page{text-align:center; margin:10px 0px}
+.dui{ color:#036}
+.cuo{ color:#F00}
+#denglu-submit{background:url(../images/login.gif) no-repeat}

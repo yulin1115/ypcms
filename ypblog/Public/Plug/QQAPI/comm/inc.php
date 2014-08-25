@@ -1,0 +1,1 @@
+{"appid":"100384296","appkey":"d561f184a2e31e6f2720d8a036ad0f3f","callback":"http://www.oscphp.com/qq/callbackqqlogin.html","scope":"get_user_info","errorReport":true,"storageType":"file","host":"localhost","user":"root","password":"root","database":"test"}

@@ -1,0 +1,212 @@
+<include file="Public:header" />
+<style>
+
+/**
+ * Grid container
+ */
+#tiles {
+list-style-type: none;
+position: relative; /** Needed to ensure items are laid out relative to this container **/
+margin: 0;
+}
+
+/**
+ * Grid items
+ */
+#tiles li {
+width: 240px;
+background-color: #ffffff;
+border: 1px solid #dedede;
+-moz-border-radius: 2px;
+-webkit-border-radius: 2px;
+border-radius: 2px;
+display: none; /** Hide items initially to avoid a flicker effect **/
+  cursor: pointer;
+padding: 4px;
+}
+
+#tiles li img {
+display: block;
+}
+
+/**
+ * Grid item text
+ */
+#tiles li p {
+color: #666;
+font-size: 11px;
+line-height: 16px;
+margin: 6px 0 1px 7px;
+}
+
+/** General page styling **/
+  
+
+
+
+/** Loader **/
+  
+#loader {
+  height: 16px;
+  text-align: center;
+  padding: 25px 0 25px 0;
+}
+  
+#loaderCircle {
+  width: 16px;
+  height: 16px;
+margin: 0 auto;
+  background-image: url('__PUBLIC__/Home/images/loader.gif');
+}
+.post .entry1 {
+    padding: 0 10px 10px;
+    text-align: justify;
+}
+</style>
+<input id="mid" type="hidden" value="{$Think.const.ACTION_NAME}" />
+	<div id="page">
+	<div id="page-bgtop">
+	<div id="page-bgbtm">
+	<div id="content">
+	  <div class="post">
+      <div class="entry1">
+        <div id="container">
+    <div id="main" role="main">
+
+      <ul id="tiles">
+        <!-- These is where we place content loaded from the Wookmark API -->
+      </ul>
+
+      <div id="loader">
+        <div id="loaderCircle"></div>
+      </div>
+    
+    </div>
+      
+  </div>
+        </div>             
+      </div>
+
+		<div style="clear: both;">&nbsp;</div>
+		</div>
+		<!-- end #content -->
+<include file="Public:left" /> 
+		<!-- end #sidebar -->
+		<div style="clear: both;">&nbsp;</div>
+	</div>
+	</div>
+	</div>
+	<!-- end #page -->
+  <!-- include jQuery -->
+  <script src="__PUBLIC__/Js/pubu/jquery-1.7.1.min.js"></script>
+  
+  <!-- Include the plug-in -->
+  <script src="__PUBLIC__/Js/pubu/jquery.wookmark.js"></script>
+  
+  <!-- Once the page is loaded, initalize the plug-in. -->
+  <script type="text/javascript">
+    var handler = null;
+    var page = 0;
+    var isLoading = false;
+    var apiURL = 'getpic.html?mid='+$('#mid').val()
+    
+    // Prepare layout options.
+    var options = {
+      autoResize: true, // This will auto-update the layout when the browser window is resized.
+      container: $('#tiles'), // Optional, used for some extra CSS styling
+      offset: 8, // Optional, the distance between grid items
+      itemWidth: 250 // Optional, the width of a grid item
+    };
+    
+    /**
+     * When scrolled all the way to the bottom, add more tiles.
+     */
+    function onScroll(event) {
+      // Only check when we're not still waiting for data.
+      if(!isLoading) {
+        // Check if we're within 100 pixels of the bottom edge of the broser window.
+        var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
+        if(closeToBottom) {
+          loadData();
+        }
+      }
+    };
+    
+    /**
+     * Refreshes the layout.
+     */
+    function applyLayout() {
+      // Clear our previous layout handler.
+      if(handler) handler.wookmarkClear();
+      
+      // Create a new layout handler.
+      handler = $('#tiles li');
+      handler.wookmark(options);
+    };
+    
+    /**
+     * Loads data from the API.
+     */
+    function loadData() {
+      isLoading = true;
+      $('#loaderCircle').show();
+      
+      $.ajax({
+        url: apiURL,
+        dataType: 'json',
+        data: {page: page}, // Page parameter to make sure we load new data
+        success: onLoadData
+      });
+    };
+    
+    /**
+     * Receives data from the API, creates HTML for images and updates the layout
+     */
+    function onLoadData(data) {
+		//alert(data);
+      isLoading = false;
+      $('#loaderCircle').hide();
+      
+      // Increment page index for future calls.
+      page++;
+      
+      // Create HTML for the images.
+	  data=data.list;
+      var html = '';
+      var i=0, length=data.length, image;
+     // alert(length);
+      for(; i<length; i++) {
+		 // alert(data[i].url_m);
+        image = data[i].url_m;
+		imageheight=data[i].imageheight;
+		//alert();
+		imagewidth=data[i].imagewidth;
+        html += '<li>';
+        
+        // Image tag (preview in Wookmark are 200px wide, so we calculate the height based on that).
+        html += '<img src="..'+image+'" width="240" height="'+Math.round(imageheight/imagewidth*240)+'">';
+        
+        // Image title.
+        //html += '<p>'+image.title+'</p>';
+        
+        html += '</li>';
+      }
+      
+      // Add image HTML to the page.
+      $('#tiles').append(html);
+      
+      // Apply layout.
+      applyLayout();
+    };
+  
+    $(document).ready(new function() {
+      // Capture scroll event.
+      $(document).bind('scroll', onScroll);
+      
+      // Load first data from the API.
+      loadData();
+    });
+  </script>
+    
+    <include file="Public:footer" />  
+</div>

@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>网站管理系统，后台登陆</title>
+<link href="__PUBLIC__/Ypadmin/css/style.css" type=text/css rel=stylesheet>
+<load href="__PUBLIC__/Js/Window/ctunion.js" /> 
+<load href="__PUBLIC__/Js/prototype.js" />
+<load href="__PUBLIC__/Js/Base.js" />
+<load href="__PUBLIC__/Js/mootools.js" />
+<load href="__PUBLIC__/Js/Ajax/ThinkAjax.js" /> 
+<style type="text/css">
+body{padding:0;margin:0px;font-size:12px;color:#555;font-family:Verdana;}
+select{margin-left:1.5em;vertical-align:middle;border:1px solid #b4cceb;height:22px;font-size:12px;}
+#main{width:800px;margin:auto;}
+*{padding:0;margin:0}
+input{font-size:12px;}
+
+.logo{padding:100px 0 0 200px;}
+.login{margin:0 0 0 140px;padding-top:80px;}
+.login th{height:33px;line-height:33px;list-style:none;text-align:right;font-weight:normal;width:200px;font-size:12px;}
+.login td{text-align:left;font-size:12px;}
+
+.logo-icon{border: 1px solid; border-color: #8cb7e1 #e3f0fc #e3f0fc #8cb7e1;float:left;background:#fff;}
+
+.bottom{text-align:center;margin:auto;padding-top:1em;color:#888;}
+a{color:#888; text-decoration:none;}
+</style>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+var PUBLIC	 =	 '__PUBLIC__';
+ThinkAjax.image = [	 '__PUBLIC__/Ypadmin/images/loading2.gif', '__PUBLIC__/Ypadmin/images/ok.gif','__PUBLIC__/Ypadmin/images/update.gif' ]
+ThinkAjax.updateTip	=	'登录中～';
+function Login(){
+ThinkAjax.sendForm('form1','__URL__/checkLogin/',loginHandle,'msgContent')
+}
+function loginHandle(data,status){
+if (status==1)
+{
+$('form1').reset();
+showMessage(data,4000,211,111);
+setTimeout("window.location = '__GROUP__/Index'",3000);
+}
+else{
+showMessage(data,4000,211,111)}
+}
+
+function fleshVerify(type){ 
+//重载验证码
+var timenow = new Date().getTime();
+if (type)
+{
+$('verifyImg').src= '__URL__/verify/adv/1/'+timenow;
+}else{
+$('verifyImg').src= '__URL__/Public/verify/'+timenow;
+}
+
+}
+</script>
+</head>
+<body>
+<div id="main">
+    <div id="wrap">
+     <div class="logo">
+          <span style="font-family: '微软雅黑'; font-size:24px; font-weight:bold; color:black;">JTADMIN</span>&nbsp;&nbsp;by <a href="http://www.juntong.net" target="_blank">君通科技</a>&nbsp;&nbsp;2012.08
+     </div>
+    </div>
+    <div id="wrapb"></div>
+    <div id="wrapc">
+     <div class="login">
+          <form method="post" name="login" id="form1" onsubmit="return false">
+          <input type="hidden" name="ajax" value="1">
+           <table cellpadding="0" cellspacing="0" width="100%">
+            <tr><th>管理员账号:</th><td><div class="logo-icon">
+            <input style="border:1px solid #CCC; HEIGHT:25PX; width:128px; LINE-HEIGHT:25PX" name="username" type="text" /></div></td></tr>
+            <tr><th>密码:</th><td><div class="logo-icon">
+            <input style="border:1px solid #CCC; HEIGHT:25PX; width:128px; LINE-HEIGHT:25PX" type="password" name="password" /></div></td></tr>
+            <tr><th>认证码:</th><td><div class="logo-icon">
+            <input name="verify" type="text" value="" style="width:68px;border:1px solid #CCC; HEIGHT:25PX; LINE-HEIGHT:25PX"  maxLength=5 size=10></div>&nbsp;<IMG id="verifyImg" SRC="__URL__/verify/adv/1/" onclick="fleshVerify(1)" BORDER="0" ALT="点击刷新验证码" style="cursor:pointer" align="absmiddle" /></td></tr>
+            <input type="hidden" name="Submit" value="提交" />
+            <tr><th></th><td><input name="" type="image" src="__PUBLIC__/Ypadmin/images/login.gif" style="margin-left:1.5em;margin-top:.5em;width:80px;height:30px;" onclick="Login()" /></td></tr>
+           </table>
+          </form>
+     </div>
+    </div>
+</div>
+<div class="bottom">Powered by © 2010－2011 Powered by 君通软件 (www.juntong.net) <a href="http://www.juntong.net" target="_blank"></a></div>
+</form>
+</body></html>

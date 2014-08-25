@@ -1,0 +1,275 @@
+<include file="Public:header" />
+<SCRIPT LANGUAGE="JavaScript">
+ 	
+function ajaxs_del(){
+		var btns=[
+			{value:" 确 认 ",onclick:"dels()",focus:true},
+			{value:" 取 消 ",onclick:"popwin.close()"}
+		];
+		popwin.showDialog(3,"确认","您选择了批量操作，该操作的完成可能需要等待一些时间。<br />是否确认继续？",btns,320,130);
+}
+function ajax_del(id){
+		var btns=[
+			{value:" 确 认 ",onclick:"del("+id+")",focus:true},
+			{value:" 取 消 ",onclick:"popwin.close()"}
+		];
+		popwin.showDialog(3,"确认","您选择了单个删除操作，你真的要删除附件吗。<br />是否确认继续？",btns,320,130);
+}
+function dels(){
+       var userValue = "";
+       $("input[name='aids']").each(function(i) {
+           if ($(this).attr("checked")) {
+              userValue += $(this).val() + "YIPU";
+           }
+       });
+	   userValue = userValue.substring(0, userValue.length - 1);
+	   //alert(userValue);
+	   //alert(userValue);
+	   $.post("{:U('del')}",{aids:userValue},complete); //$.post()后台只能用$_POST[]获取参数
+	   popwin.close();
+}
+function del(id){
+    $.get("{:U('del')}",{id:id},complete); 
+    popwin.close();
+}
+function complete(data){
+    if (data.status==1){
+        showMessage(data.info,4000,211,111,'dui');
+		setTimeout("window.location = {:U('index')}",3000);
+    }else{
+        showMessage(data.info,4000,211,111,'cuo');
+    }
+}
+function addRow(){   
+	curFileNum++;
+	rowsnum++;
+    var row=tbl.insertRow(-1);
+	//var td = arow.insertCell();
+	var cell = document.createElement("td");
+	cell.innerHTML='<div class="fLeft hMargin"><IMG SRC="../Public/images/del.gif"  style="cursor:hand" onfocus="javascript:getObject(this)" onclick="deleteRow();" WIDTH="20" HEIGHT="20" BORDER="0" ALT="删除" align="absmiddle"></div> <div class="impBtn  fLeft" ><INPUT TYPE="file"  name="file'+ curFileNum +'" class="file  large"></div><div class="fLeft hMargin "> 描述：</div><div class="fLeft "><input type="text" name="remark[]" class="huge"></div> ';
+	cell.align="center"
+	row.appendChild(cell); 
+	//addFileForm.num.value=rowsnum;
+}
+</script>
+<table cellspacing=0 cellpadding=0 width="100%" border=0>
+<tbody >
+  <tr>
+<include file="Public:left" />    
+<td id=container valign=top align=left>
+<!--加载各个模块main部分-->
+<div id="t1">
+	<form id="dataForm" method="post" action="">
+    <input type="hidden" name="ajax" value="1">
+   
+   
+    <div class="tt">查询筛选</div>
+    <table cellpadding="2" cellspacing="1" class="tb">
+	<tr>
+	<td style="padding:5px">
+    <div style="width:40%; float:left; line-height:">
+    <a class="td_5_1a" href="javascript:addRow()"><img src="__PUBLIC__/Ypadmin/images/close.gif"   class="imgpt4"/> <span class="">新增</span></a>&nbsp;&nbsp;    
+    <a class="td_5_1a" href="javascript:ajaxs_del()"><img src="__PUBLIC__/Ypadmin/images/close.gif"   class="imgpt4"/> <span class="">删除附件</span></a>&nbsp;&nbsp;
+	<a class="td_5_1a" href="admin.php?type=ExtraModule&inc=portalchannel&action=set"><img src="__PUBLIC__/Ypadmin/images/icon_add.gif"   class="imgpt4"/> <span class="">缓存数据</span></a>
+    </div>
+    <input type="hidden" value="" id="cid" />
+	<div align="center" id="searchs"> 
+        <span style="float:left">
+        <select name="catid" id="select" style="width:160px;">
+        <option value="-1">分类筛选</option>
+        <foreach name="sorts" item="sort">
+        <option value="{$sort.id}">{$sort.nname}</option>
+        </foreach>
+        </select>
+        </span>
+        <span style="float:left; margin-left:10px;">
+        <select name="type" id="attribute" style="width:50px;">
+        <option value="-1">级别</option>
+        <option value="0">正常</option>
+        <option value="1">首页</option>  
+        <option value="2">置顶</option>   
+        </select>
+        </span>
+        <span style="float:left; margin-left:10px;">
+        <select name="catid" id="state" style="width:50px;">
+        <option value="-1">状态</option>
+        <option value="1">通过</option>
+        <option value="2">待审</option>
+        </select>
+        </span>        
+   	    <span style="font-weight:bold; margin-left:10px; float:left; border-right:2px dotted #CCC; padding-right:10px">
+        	<input class="cxinputs" type="text"  value="" id="name" name="name"  style="height:17px; width:110px;"/>
+        </span>
+        <span style="float:left ; margin-left:10px;"><img src="__PUBLIC__/Ypadmin/images/bb_look.gif" onClick="searchs()" title="点击筛选"/></span>
+    	<div style="clear:both"></div>
+     </div>
+    </td>
+	</tr>
+	</table>
+	<div class="div_clear" style="height:10px;"></div>
+	<table cellpadding="2" cellspacing="1" class="tb" id="checkList">
+	<tr>
+	<th><input type="checkbox" onClick="selectall(this.checked)" class="checkbox_css" /></th>
+	<th>ID</th>
+	<th>名称</th>
+    <th>类型</th>
+	<th>保存名称</th>
+	<th>保存路径</th>
+    <th>分类</th>
+	<th>下载次数</th>
+    <th>上传者</th>
+    <th>下载设置</th>
+	<!--<th>作者</th>
+	<th>更新时间</th>-->
+	<th>操作</th>
+	</tr>
+    <volist name="list" id="list">
+	<tr onMouseOver="this.className='on';" onMouseOut="this.className='';" align="">
+	<td width="30px"><input class="checkbox_css" type="checkbox" name="aids" value="{$list.id}"></td>
+	<td width="50px">{$list.id}</td>
+	<td style="color:{$list.style}; width:280px">{$list.name}</td>
+    <td>{$list.extension}</td>
+	<td>{$list.savename}</td>
+	<td>{$list.savepath}</td>
+    <td>{$list.module}</td>
+    <td>{$list.download_count}</td>
+    <td>{$list.user_id}</td>
+    <td><if condition="$list.status eq 0 ">开放下载<elseif condition="$list.status eq 1"/><font color="#999999">会员下载</font></if></td>
+	<td width="45">
+	<a href="javascript:ajax_del({$list.id})"><img src="__PUBLIC__/Ypadmin/images/close.gif" title="删除"/></a>
+	</td>
+	</tr>
+    </volist>
+
+	</table>
+	<div class="div_clear" style="height:10px;"></div>
+    <table cellpadding="0" cellspacing="0" class="tb">
+    <tr><td class="page">{$page}</td></tr>
+    </table>
+	</form>
+    <if condition="$Think.get.id neq null ">
+    	<div class="tt">注意事项</div>
+	<table cellpadding="2" cellspacing="1" class="tb">
+	<tr>
+	<td>&nbsp;&nbsp;&nbsp;1、上传图片后如想重新上传,请先删除上传的饿图片,以免无用图片的堆积!</td>
+	</tr>
+    <tr><td><div id="result" class="result none"></div>
+  <form action="{:U('uploads')}" id="upfiles" method="post" enctype="multipart/form-data">
+    <INPUT TYPE="hidden" name="ajax" value="1">
+    <INPUT TYPE="hidden" name="_uploadFileTable" value="{$Think.get.module}">
+    <INPUT TYPE="hidden" name="_uploadUserId" value="{$user}">
+	<INPUT TYPE="hidden" name="_uploadRecordId" value="{$Think.get.id} ">
+    <div id="uppic">
+        <div style="width:80px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#F1F1F1; float:left; border:1px #CCC solid; text-align:center ; line-height:26px;">附件</div>
+        <div style="width:250px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#ffffff; border:1px #CCC solid; text-align:center ; float:left; line-height:26px;"><input type="file" id="pic" name="image[]" style="height:23px" class="huge bLeft"></div>
+        <div style="width:250px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#ffffff; text-align:center ; float:left; line-height:26px;">描述：<input type="text" name="remark[]" style="height:23px; width:200px;" class="huge bLeft"></div>
+        <div style="clear:both"></div>
+    </div>
+    <div id="uppic">
+        <div style="width:80px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#F1F1F1; float:left; border:1px #CCC solid; text-align:center ; line-height:26px;">附件</div>
+        <div style="width:250px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#ffffff; border:1px #CCC solid; text-align:center ; float:left; line-height:26px;"><input type="file" id="pic" name="image[]" style="height:23px" class="huge bLeft"></div>
+        <div style="width:250px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#ffffff;  text-align:center ; float:left; line-height:26px;">描述：<input type="text" name="remark[]" style="height:23px;width:200px;" class="huge bLeft"></div>    
+        <div style="clear:both"></div>
+    </div>
+    <div id="uppic">
+        <div style="width:80px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#F1F1F1; float:left; border:1px #CCC solid; text-align:center ; line-height:26px;">附件</div>
+        <div style="width:250px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#ffffff; border:1px #CCC solid; text-align:center ; float:left; line-height:26px;"><input type="file" id="pic" name="image[]" style="height:23px" class="huge bLeft"></div>
+        <div style="width:250px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#ffffff; text-align:center ; float:left; line-height:26px;">描述：<input type="text" name="remark[]" style="height:23px; width:200px;" class="huge bLeft"></div>
+        <div style="clear:both"></div>
+    </div>
+    <div id="uppic">
+        <div style="width:80px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#F1F1F1; float:left; border:1px #CCC solid; text-align:center ; line-height:26px;">附件</div>
+        <div style="width:250px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#ffffff; border:1px #CCC solid; text-align:center ; float:left; line-height:26px;"><input type="file" id="pic" name="image[]" style="height:23px" class="huge bLeft"></div>
+        <div style="width:250px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#ffffff;  text-align:center ; float:left; line-height:26px;">描述：<input type="text" name="remark[]" style="height:23px;width:200px;" class="huge bLeft"></div>    
+        <div style="clear:both"></div>
+    </div>
+    <div id="uppic">
+        <div style="width:80px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#F1F1F1; float:left; border:1px #CCC solid; text-align:center ; line-height:26px;">附件</div>
+        <div style="width:250px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#ffffff; border:1px #CCC solid; text-align:center ; float:left; line-height:26px;"><input type="file" id="pic" name="image[]" style="height:23px" class="huge bLeft"></div>
+        <div style="width:250px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#ffffff; text-align:center ; float:left; line-height:26px;">描述：<input type="text" name="remark[]" style="height:23px; width:200px;" class="huge bLeft"></div>
+        <div style="clear:both"></div>
+    </div>
+    <div id="uppic">
+        <div style="width:80px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#F1F1F1; float:left; border:1px #CCC solid; text-align:center ; line-height:26px;">附件</div>
+        <div style="width:250px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#ffffff; border:1px #CCC solid; text-align:center ; float:left; line-height:26px;"><input type="file" id="pic" name="image[]" style="height:23px" class="huge bLeft"></div>
+        <div style="width:250px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#ffffff;  text-align:center ; float:left; line-height:26px;">描述：<input type="text" name="remark[]" style="height:23px;width:200px;" class="huge bLeft"></div>    
+        <div style="clear:both"></div>
+    </div>
+    <div id="uppic">
+        <div style="width:80px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#F1F1F1; float:left; border:1px #CCC solid; text-align:center ; line-height:26px;">附件</div>
+        <div style="width:250px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#ffffff; border:1px #CCC solid; text-align:center ; float:left; line-height:26px;"><input type="file" id="pic" name="image[]" style="height:23px" class="huge bLeft"></div>
+        <div style="width:250px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#ffffff; text-align:center ; float:left; line-height:26px;">描述：<input type="text" name="remark[]" style="height:23px; width:200px;" class="huge bLeft"></div>
+        <div style="clear:both"></div>
+    </div>
+    <div id="uppic">
+        <div style="width:80px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#F1F1F1; float:left; border:1px #CCC solid; text-align:center ; line-height:26px;">附件</div>
+        <div style="width:250px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#ffffff; border:1px #CCC solid; text-align:center ; float:left; line-height:26px;"><input type="file" id="pic" name="image[]" style="height:23px" class="huge bLeft"></div>
+        <div style="width:250px; margin-top:10px; padding-left:10px; padding-right:10px; height:26px; background:#ffffff;  text-align:center ; float:left; line-height:26px;">描述：<input type="text" name="remark[]" style="height:23px;width:200px;" class="huge bLeft"></div>    
+        <div style="clear:both"></div>
+    </div>            
+    <div class="div_clear" style="height:10px;"></div>
+    	<table cellpadding="2" cellspacing="1" class="tb" id="tablebg">
+	<tr>
+		<td class="t2">
+        <fieldset style="clear:both; width:330px;">
+        <legend>附件权限设置</legend>
+        <input type="checkbox" value="1" name="status">
+        <label for=""> 网站会员  </label>
+        <br>
+        如果不设置下载限制，则默认为开放下载
+        </fieldset>
+		</td>
+	</tr>
+	</table>
+    <div style="clear:both; height:10px;"></div>
+    <input class="button_css" type="submit"   value="发  布" />
+    </form>
+    
+    </td></tr>
+	</table>
+    </if>
+    </div>
+
+	<script>
+	
+	
+	/* 
+	 * 全选
+	 * @Author (CX)残雪易冷
+	 */
+	function selectall(b){
+		var oForm=document.getElementById("dataForm");
+		for (var i = 0; i < oForm.elements.length; i++) {
+			if(oForm.elements[i].type=="checkbox"&&!oForm.elements[i].disabled){
+				oForm.elements[i].checked = b;
+			}
+		}
+	}
+	</script>
+	
+
+
+
+
+
+</td>
+<include file="Public:footer" />
+<SCRIPT LANGUAGE="JavaScript">
+ $(function(){
+        $('#upfiles').ajaxForm({
+            success:       complete,  // post-submit callback
+            dataType: 'json'
+        });
+        function complete(data){
+            if (data.status==1){
+				$('#upfiles').resetForm();
+                showMessage(data.info,4000,211,111,'dui');
+				setTimeout("window.location = '{:U('index')}'",3000);
+                // 更新列表
+            }else{
+                showMessage(data.info,4000,211,111,'cuo');
+            }
+        }
+
+    });
+</script>

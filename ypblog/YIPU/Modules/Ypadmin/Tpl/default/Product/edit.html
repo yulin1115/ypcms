@@ -1,0 +1,151 @@
+<include file="Public:header" />
+<table cellspacing=0 cellpadding=0 width="100%" border=0>
+<tbody >
+  <tr>
+<include file="Public:left" />    
+<td id=container valign=top align=left>
+<!--加载各个模块main部分-->
+
+<style>
+select{width:210px}
+</style>
+<SCRIPT LANGUAGE="JavaScript">
+ $(function(){
+        $('#productupdate').ajaxForm({
+            success:       complete,  // post-submit callback
+            dataType: 'json'
+        });
+        function complete(data){
+            if (data.status==1){
+                showMessage(data.info,4000,211,111,'dui');
+				setTimeout("window.location = '{:U('index')}'",3000);
+                // 更新列表
+            }else{
+                showMessage(data.info,4000,211,111,'cuo');
+            }
+        }
+
+    });
+</script>
+<div id="smalltab_container"></div>
+	<div class="smalltab_line"></div>
+	<div id="t1">
+	<div class="tt">注意事项</div>
+	<table cellpadding="2" cellspacing="1" class="tb">
+	<tr>
+	<td>&nbsp;&nbsp;&nbsp;1、上传图片后如想重新上传,请先删除上传的饿图片,以免无用图片的堆积!</td>
+	</tr>
+	</table>
+	
+	<div class="div_clear" style="height:10px;"></div>
+	<form id="productupdate" method="post" action="{:U('update')}">
+    <input type="hidden" name="ajax" value="1">
+    <INPUT type="hidden" name="id" value="{$edit.id}"><!-- save（）操作必须添加此隐藏域  -->
+    <input type="hidden" name="author" value="{$username}">
+	<div class="tt">基本信息</div>
+	<table cellpadding="2" cellspacing="1" class="tb" id="tablebg">
+	<tr >
+	<td class="tl">所属分类:</td>
+	<td id="catid" class="t2"><select name="catid" id="select" style="width:206px;">
+    <option value="-1">作为一级栏目</option>
+    <foreach name="sorts" item="sort">
+    <option value="{$sort.id}" <if condition="$edit.sort_id eq $sort.id ">selected="selected"</if>>{$sort.cname}</option>
+    </foreach>
+    </select></td>
+	<td class="t2"><font color="#990000">*</font>必填</td>
+	</tr>
+	<tr >
+	<td class="tl">名称:</td>
+	<td class="t2"><input type="text"  class="text_css" id="title" name="title" style="height:16px;padding:2px; width:200px; border: 1px solid #CCCCCC;color: #666666"   value="{$edit.name}" />
+    <script language="javascript" type="text/javascript" src="__PUBLIC__/Js/color/color.js"></script>
+	<span id="highlightopt" style="">
+		<input type="text" size="8" style="height:16px;padding:2px;width:50px;" class="text_css" value="" id="highlightcolor" name="highlightfontC" onfocus="colorpicker.choose(event);" /> <img src="__PUBLIC__/Ypadmin/images/ico_color.gif" align="absmiddle" border="0" id="img_color" class="colorpicker" onclick="colorpicker.choose(event);" /> &nbsp; 
+	</span>
+	</td><td class="t2"><font color="#990000">*</font>必填</td>
+	</tr>
+	<tr >
+	<td class="tl">编号:</td>
+	<td class="t2"><input type="text"  class="text_css" id="sn" name="sn" style="height:16px;padding:2px; width:200px; border: 1px solid #CCCCCC;color: #666666"   value="{$edit.number}" />
+	</td><td class="t2"></td>
+	</tr> 
+	<tr >
+	<td class="tl">市场价:</td>
+	<td id="catid" class="t2"><input type="text" size="10" id="inputs2" name="price1"   value="{$edit.market_price}" /></td>
+	<td class="t2"></td>
+	</tr>
+	<tr >
+	<td class="tl">优惠价:</td>
+	<td id="catid" class="t2"><input type="text" size="10" id="inputs2" name="price2"   value="{$edit.shop_price}" /></td>
+	<td class="t2"></td>
+	</tr>           
+	<tr >
+	<td class="tl">排序:</td>
+	<td id="catid" class="t2"><input type="text" size="10" id="inputs2" name="order"   value="{$edit.paixu}" /></td>
+	<td class="t2"></td>
+	</tr>
+	
+	<tr >
+	<td class="tl">产品状态:</td>
+	<td class="t2">
+    <select name="status" id="select" style="width:206px;">
+    <option value="1" <if condition="$edit.status eq 1 ">selected="selected"</if>>待审</option>
+    <option value="2" <if condition="$edit.status eq 2 ">selected="selected"</if>>通过</option>
+    </select>
+    </td>
+	<td class="t2"></td>
+	</tr>
+	<tr >
+	<td class="tl">产品级别:</td>
+	<td class="t2">
+    <select name="type" id="select" style="width:206px;">
+    <option value="0" <if condition="$edit.attribute eq 0 ">selected="selected"</if>>正常</option>
+    <option value="1" <if condition="$edit.attribute eq 1 ">selected="selected"</if>>首页</option>  
+    <option value="2" <if condition="$edit.attribute eq 2 ">selected="selected"</if>>置顶</option>   
+    </select>
+    </td>
+	<td class="t2"></td>
+	</tr>
+
+    <tr >
+    <script language="javascript" type="text/javascript" src="__PUBLIC__/Plug/My97DatePicker/WdatePicker.js"></script>
+	<td class="tl">发布时间:</td>
+	<td class="t2"><input class="Wdate" style="height:16px;padding:2px"  type="text" onClick="WdatePicker()" name="time"   value="{$edit.creattime|date="Y-m-d H:i:s",###}" /> </td>
+	<td class="t2"><font color="#990000">*</font>必填</td>
+	</tr>
+	
+	</table>
+	<div class="div_clear" style="height:10px;"></div>
+	<div class="tt">商品简介：</div>
+	<table cellpadding="2" cellspacing="1" class="tb" id="tablebg">
+	<tr >
+	<td class="tl">内容备注:</td>
+	<td id="catid" class="t2">
+    <textarea name="remark" cols="" rows="" style="width:690px; height:100px">{$edit.remark}</textarea>
+    </td>
+	<td class="t2"><font color="#990000">*</font>必填</td>
+	</tr>    
+	</table>    
+	<div class="div_clear" style="height:10px;"></div>
+	<div class="tt">详细信息</div>
+	<table cellpadding="2" cellspacing="1" class="tb" id="tablebg">
+	<tr >
+	<td class="tl">内容备注:</td>
+	<td id="catid" class="t2">{$editor}</td>
+	<td class="t2"><font color="#990000">*</font>必填</td>
+	</tr>    
+	</table>
+	
+	
+   
+	<div class="div_clear" style="height:10px;"></div>
+	<input class="button_css" type="submit" name="submit" id="submit" onclick="product_update();" value="修  改" />
+	</form>
+	</div>
+	
+	<div id="t2"></div>
+	<div id="t3"></div>
+	
+
+
+</td>
+<include file="Public:footer" />

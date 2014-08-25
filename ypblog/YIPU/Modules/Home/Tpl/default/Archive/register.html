@@ -1,0 +1,93 @@
+﻿
+<div style="text-align:center; padding:10px 0px; width:400px; background: #F0F0F0">
+	带 <font color="red">*</font> 的为必填项， 请确保您填写的信息真实有效！
+</div>
+<div class="div_clear" style="height:10px;"></div>
+<form name="regForm2" id="regForm2" onsubmit="return false;">
+<table  cellpadding="0" cellspacing="0" class="tb5" style="font-size:12px" >
+ <input type="hidden" name="user[type]" id="nametype" value="2" />
+ <tr>
+  <td align="right" width="93">
+	<font color="red">*</font> 会员名：
+	</td>
+	<td>	
+	<INPUT type="text" value="" id="username" name="username" class="text_css_h"  style="width:200px;" onfocus="formatecheck('resUserName');" onblur="tocheckusername();"/>
+	<a id="resUserName" class=""></a>
+	<br>6-15个字符，一个汉字为三个字符。
+ </td>
+ </tr>
+ <tr>
+		<td height="10px"></td><td></td>
+		</tr>
+ <tr>
+ <td align="right">
+	<font color="red">*</font> 邮箱：</td>
+	<td>
+	<INPUT type="text" value="" id="email" name="user[email]" class="text_css_h"   style="width:200px;" onfocus="formatecheck('resEmai');" onblur="tocheckemail();"/>
+	<a id="resEmai" class=""></a>
+	<br>请填写常用的邮箱
+	
+  </td>
+   </tr>
+   <tr>
+					  <td height="10px"></td><td></td>
+					</tr>
+  <tr>
+ <td align="right">
+	<font color="red">*</font> 登录密码：</td><td>
+	<INPUT type="password" id="pass" name="user[pass]" value="" class="text_css_h" style="width:200px;" onfocus="formatecheck('resPass');" onblur="tocheckPass();"/>
+	<a id="resPass" class=""></a><br>6-14个字符，字母加数字或符号。
+	
+  </td>
+   </tr>
+    <tr>
+		<td height="10px"></td><td></td>
+	</tr>
+  <tr>
+  <td align="right">
+	<font color="red">*</font> 确认密码：</td><td>
+	<INPUT type="password"  id="repass" name="user[repass]" value="" class="text_css_h"  style="width:200px;" onfocus="formatecheck('resRepass');" onblur="tocheckRepass();"/>
+	<a id="resRepass" class=""></a><br>请再次输入您的密码
+	
+  </td>
+  </tr>
+  <tr>
+					  <td height="10px"></td><td></td>
+					</tr>
+
+  <tr style="margin:10px 20px 0px 20px">
+	<td align="right"><font color="red">*</font> 验证码：</td><td>
+	<div style="position:relative">
+	<input class="text_css_h" type = "text" name ="user[verify]" style="width:200px;"/>&nbsp;&nbsp;&nbsp;
+	<DIV style="padding:0px 0px; height:30px; line-height:30px; position:relative">
+		<img id="verify" src = "{$URL_ROOT}include/verify.class.php" style="position:absolute; left: 80px; top:3px"/>
+		<a  href="javascript:reloadverify();" style="">看不清楚？</a>
+	</DIV>
+	</div>
+	</td>
+  </tr>
+	<tr>
+		<td height="10px"></td><td></td>
+	</tr>
+    <tr>
+		<td align="right">
+		  
+		</td>
+		<td align="left">
+			<INPUT type="checkbox" id="therule" name="user[therule]" value="1" />
+			<font color="red">*</font>接受<a href="index.php?CM=service" target="_blank" style="text-decoration:underline; ">服务条款</a>
+		</td>
+	</tr>
+	<tr>
+		<td height="10px"></td><td></td>
+	</tr>
+	<tr>
+		<td align="right">
+		  
+		</td>
+		<td align="left">
+			<input onclick="checkRegister();" type="button" class="button_css" value="同意服务条款，提交注册信息" style="width:200px;"/>
+		</td>
+	</tr>
+  </table>
+</form>

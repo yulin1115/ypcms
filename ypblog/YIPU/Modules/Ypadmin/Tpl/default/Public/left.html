@@ -1,0 +1,48 @@
+<td valign=top align=left width="134">
+    <div id=sidebartop></div>
+
+	<table cellspacing=0 cellpadding=0 width="100%" border=0>
+        <tbody>
+        <tr>
+          <td valign=top align=left width="134">
+            <div id=sidebar>
+            <div class="sidebarmenu" onclick="displayToggle('m_', 1);">系统模块</div>
+			<div id="">
+
+            <!--根据用户权限输出模块-->
+            <foreach name="menu" item="module1">
+            <if condition="$module1.type eq 2 ">
+            <div class="sidebarsubmenu" id="menu_wt"><a href="{:U(''.$module1['name'].'/index')}">{$module1.title}</a></div>
+            </if>
+            </foreach>
+            <!--根据用户权限输出模块-->
+
+			</div>
+			</div>
+       	    </td>
+		  </tr>
+		</tbody>
+	</table>
+
+    <table cellspacing=0 cellpadding=0 width="100%" border=0>
+        <tbody>
+        <tr>
+          <td valign=top align=left width="114">
+            <div id=sidebar>
+            <div class="sidebarmenu" onclick="displayToggle('m_added', 1);">安装模块</div>
+			<div id="m_added">
+            <!--根据用户权限输出模块-->
+            <foreach name="menu" item="module2">
+            <if condition="$module2.type eq 1 ">
+            <div class="sidebarsubmenu" id="menu_wt"><a href="{:U(''.$module2['name'].'/index')}">{$module2.title}</a></div>
+            </if>
+            </foreach>
+            <!--根据用户权限输出模块-->
+			</div>
+			</div>
+       	    </td>
+		  </tr>
+		</tbody>
+	</table>
+	<div id="sidebarBottom"></div>
+</td>

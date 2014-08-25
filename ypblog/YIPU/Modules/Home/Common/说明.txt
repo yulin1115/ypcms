@@ -1,0 +1,1 @@
+分组自动调用的公用函数文件时function.php不是common.php

@@ -1,0 +1,47 @@
+<include file="Public:header" />
+<table cellspacing=0 cellpadding=0 width="100%" border=0>
+<tbody >
+  <tr>
+<include file="Public:left" />    
+<td id=container valign=top align=left>
+<!--加载各个模块main部分-->
+<div id="t1">
+<div id="admindex">
+<div id="admindex_servinfo">
+<h3>服务器信息</h3>
+<ul>
+<volist name="serverinfo" id="v">
+	<li><div style="width:40%; float:left">{$key}:</div><div style="float:left">{$v}</div><div style="clear:both"></div></li>
+</volist>    
+</ul>
+
+</div>
+
+<div id="admindex_msg">
+<h3>信息统计</h3>
+<ul>
+	<li><div style="width:40%; float:left">登录用户：</div><div style="float:left"><if condition="$username neq null ">{$username}&nbsp;&nbsp;({$user})<else />顶级管理员&nbsp;&nbsp;(admin)</if></div><div style="clear:both"></div></li>
+    <li><div style="width:40%; float:left">最后登录时间：</div><div style="float:left">{$lastlogintime|date="Y-m-d G:i:s",###}</div><div style="clear:both"></div></li>
+    <li><div style="width:40%; float:left">最后登录IP：</div><div style="float:left">{$lastloginip}</div><div style="clear:both"></div></li>
+    <li><div style="width:40%; float:left">登录次数：</div><div style="float:left">{$logincount}&nbsp;次</div><div style="clear:both"></div></li>    
+    <li><div style="width:40%; float:left">操作系统：</div><div style="float:left">{$Os}</div><div style="clear:both"></div></li>
+    <li><div style="width:40%; float:left">浏览器：</div><div style="float:left">{$Browser}</div><div style="clear:both"></div></li>
+    <li><div style="width:40%; float:left">浏览器语言：</div><div style="float:left">{$Browserlan}</div><div style="clear:both"></div></li>
+     <li><div style="width:40%; float:left; height:79px;"></div><div style="clear:both"></div></li>
+    <li style=" height:50px"><div style="width:40%; float:left"><iframe src="http://weather.17oh.com/weather.php" width="168" height="50" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></div></li>
+<!--    <li><div style="width:40%; float:left">访客真实IP：</div><div style="float:left">{$ip}</div><div style="clear:both"></div></li>
+    <li><div style="width:40%; float:left">本地真实IP：</div><div style="float:left">{$ip1}</div><div style="clear:both"></div></li>
+    <li><div style="width:40%; float:left">本次登录地点：</div><div style="float:left">{$addres}</div><div style="clear:both"></div></li>-->
+</ul>
+<ul>
+
+	
+	
+	
+</ul>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</td>
+<include file="Public:footer" />

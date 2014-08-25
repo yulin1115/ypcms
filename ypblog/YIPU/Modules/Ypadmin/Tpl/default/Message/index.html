@@ -1,0 +1,191 @@
+<include file="Public:header" />
+<SCRIPT LANGUAGE="JavaScript">
+ $(function(){
+        $('#replay').ajaxForm({
+            success:  complete,  // post-submit callback
+            dataType: 'json'
+        });
+        function complete(data){
+            if (data.status==1){
+                showMessage(data.info,4000,211,111,'dui');
+				setTimeout("window.location = '{:U('index')}'",3000);
+                // 更新列表
+            }else{
+                showMessage(data.info,4000,211,111,'cuo');
+            }
+        }
+
+    });
+function ajaxs_del(){
+		var btns=[
+			{value:" 确 认 ",onclick:"dels()",focus:true},
+			{value:" 取 消 ",onclick:"popwin.close()"}
+		];
+		popwin.showDialog(3,"确认","您选择了批量操作，该操作的完成可能需要等待一些时间。<br />是否确认继续？",btns,320,130);
+}
+function ajax_del(id){
+		var btns=[
+			{value:" 确 认 ",onclick:"del("+id+")",focus:true},
+			{value:" 取 消 ",onclick:"popwin.close()"}
+		];
+		popwin.showDialog(3,"确认","您选择了单个删除操作，你真的要删除文档吗。<br />是否确认继续？",btns,320,130);
+}
+function replay(id){
+	    var url="{:U('update')}";
+		var content =  '<table width="400px"  border="0" cellspacing="0" cellpadding="0" id="inComment"></table>';
+		content += '<div class="flickr" id="pageStr"></div>';
+		content += '<table width="100%"  border="0" cellspacing="0" cellpadding="0">';
+		content += '<tr>';
+		content += '<td class="conment2" colspan="2">';
+		content += '<form id="replay"  method="post"  action="'+url+'">';
+		content += '<input type="hidden" name="ajax" value="1">';
+		content += '<input type="hidden" name="id" value="'+id+'">';
+		content += '内容：<br/><textarea style="width:350px; height:200px;" class="medium half" id="replayss"  name="replayss"></textarea><br/>  ';
+		content += '</form>';
+		content += ' </td>';
+		content += '</tr>';
+		content += '</table>';
+		var btns=[
+			{value:" 提 交 ",onclick:"updates("+id+")",focus:true},
+			{value:" 取 消 ",onclick:"popwin.close()"}
+		];
+		popwin.showDialog(3,"回复",content,btns,400,334);
+}
+function updates(id){
+	//alert($('#replayss').val());
+    $.post("{:U('update')}",{id:id,replay:$('#replayss').val()},complete);
+}
+function dels(){
+    var userValue = "";
+    $("input[name='aids']").each(function(i) {
+        if ($(this).attr("checked")) {
+            userValue += $(this).val() + "YIPU";
+        }
+    });
+	userValue = userValue.substring(0, userValue.length - 1);
+	   //alert(userValue);
+    $.post("{:U('del')}",{aids:userValue},complete); 
+	popwin.close();
+}
+
+function del(id){
+    $.get("{:U('del')}",{id:id},complete); 
+    popwin.close();
+}
+function complete(data){
+    if (data.status==1){
+        showMessage(data.info,4000,211,111,'dui');
+		setTimeout("window.location = '{:U('index')}'",3000);
+    }else{
+        showMessage(data.info,4000,211,111,'cuo');
+    }
+}
+function ajaxs_pass(){
+	var userValue = "";
+    $("input[name='aids']").each(function(i) {
+        if ($(this).attr("checked")) {
+           userValue += $(this).val() + "YIPU";
+        }
+    });
+	userValue = userValue.substring(0, userValue.length - 1);
+    $.post("{:U('pass')}",{id:2,aids:userValue},complete); 
+}
+function ajaxs_nopass(){
+	var userValue = "";
+    $("input[name='aids']").each(function(i) {
+        if ($(this).attr("checked")) {
+           userValue += $(this).val() + "YIPU";
+        }
+    });
+	userValue = userValue.substring(0, userValue.length - 1);
+    $.post("{:U('pass')}",{id:1,aids:userValue},complete); 
+}
+
+</script>
+<table cellspacing=0 cellpadding=0 width="100%" border=0>
+<tbody >
+  <tr>
+<include file="Public:left" />    
+<td id=container valign=top align=left>
+<!--加载各个模块main部分-->
+<div id="t1">
+	<form id="dataForm"  onsubmit="return false;">
+    <input type="hidden" name="ajax" value="1">
+    <div class="tt">查询筛选</div>
+    <table cellpadding="2" cellspacing="1" class="tb">
+	<tr>
+	<td style="padding:5px">
+    <div style="width:40%; float:left; line-height:">
+    <a class="td_5_1a" href="javascript:ajaxs_del()"><img src="__PUBLIC__/Ypadmin/images/close.gif"   class="imgpt4"/> <span class="">删除留言</span></a>&nbsp;&nbsp;
+    <a class="td_5_1a" href="javascript:ajaxs_pass()"><img src="__PUBLIC__/Ypadmin/images/pass.png"   class="imgpt4"/> <span class="">审核通过</span></a>&nbsp;&nbsp;
+    <a class="td_5_1a" href="javascript:ajaxs_nopass()"><img src="__PUBLIC__/Ypadmin/images/nopass.png"   class="imgpt4"/> <span class="">继续审核</span></a>
+    </div>
+    </td>
+	</tr>
+	</table>
+	<div class="div_clear" style="height:10px;"></div>
+	<table cellpadding="2" cellspacing="1" class="tb" id="contentTb">
+	<tr>
+	<th><input type="checkbox" onclick="selectall(this.checked)" class="checkbox_css" /></th>
+	<th>ID</th>
+	<th>详细信息</th>
+    <th>状态</th>
+	<th>时间</th>
+	<!--<th>作者</th>
+	<th>更新时间</th>-->
+	<th>操作</th>
+	</tr>
+    <volist name="lists" id="lists">
+	<tr onmouseover="this.className='on';" onmouseout="this.className='';" align="">
+	<td width="4%"><input class="checkbox_css" type="checkbox" name="aids" value="{$lists.id}"></td>
+	<td width="4%">{$lists.id}</td>
+    <td width="">姓名：{$lists.user}&nbsp;&nbsp;标题：{$lists.title}<br />
+        内容：{$lists.content}<br />
+        <if condition="$lists.replay neq null ">
+        &nbsp;&nbsp;&nbsp;&nbsp;<font color="#999999">管理回复：{$lists.replay}</font></if></td>
+    <td width="5%"><if condition="$lists.status eq 2 ">通过<elseif condition="$lists.status eq 1"/><font color="#999999">待审...</font></if></td>
+    <td width="13%">{$lists.creattime|mdate}
+    <if condition="$lists.replay neq null ">
+    <br />
+    {$lists.replaytime|mdate}
+    </if>
+    </td>
+	<td  width="45" style="vertical-align:middle">
+    <a href="javascript:ajax_del({$lists.id})"><img src="__PUBLIC__/Ypadmin/images/close.gif" align="absmiddle" title="删除"/></a>
+	<a href="javascript:replay({$lists.id})">回复</a>
+    </td>
+	</tr>
+    <tr></tr>
+    </volist>
+
+	</table>
+	<div class="div_clear" style="height:10px;"></div>
+    <table cellpadding="0" cellspacing="0" class="tb">
+    <tr><td class="page">{$page}</td></tr>
+    </table>
+	</form>
+    </div>
+	<script>
+	
+	
+	/* 
+	 * 全选
+	 * @Author (CX)残雪易冷
+	 */
+	function selectall(b){
+		var oForm=document.getElementById("dataForm");
+		for (var i = 0; i < oForm.elements.length; i++) {
+			if(oForm.elements[i].type=="checkbox"&&!oForm.elements[i].disabled){
+				oForm.elements[i].checked = b;
+			}
+		}
+	}
+	</script>
+	
+
+
+
+
+
+</td>
+<include file="Public:footer" />
