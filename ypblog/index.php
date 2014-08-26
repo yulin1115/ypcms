@@ -1,6 +1,6 @@
 <?php
     //define('RUNTIME_PATH','./Cms/temp/');
-    //开启调试模式
+    //开启调试模式y1分支
     define('APP_DEBUG', true);
     //定义项目名称
     define('APP_NAME', 'YIPU');
