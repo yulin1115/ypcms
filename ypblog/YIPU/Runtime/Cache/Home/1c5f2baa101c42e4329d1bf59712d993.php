@@ -3,16 +3,16 @@
 <head>
 <meta property="qc:admins" content="755672634767330006375" />
 <meta property="qc:admins" content="755672634767330006375" />
-<meta name="keywords" content="怿朴的博客,PHP开发技术,PHP博客,WEB开发技术,OSCPHP" />
-<meta name="description" content="<?php if($read["newcontent"] != null): echo (msubstr($read["newcontent"],0,130,'utf-8',true)); else: ?>怿朴的博客_OSCPHP www.oscphp.com 专注于PHP开发,Thinkphp框架的开发,把从工作中累积经验的经验分享给大家<?php endif; ?>" />
+<meta name="keywords" content="<?php if($read["keywords"] == ''): echo (C("KEYWORDS")); else: echo ($read["keywords"]); endif; ?>" />
+<meta name="description" content="<?php if($read["description"] == ''): echo (C("DESCRIPTION")); else: echo ($read["description"]); endif; ?>" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>
-<?php if(MODULE_NAME== 'Tag'): echo (ACTION_NAME); ?>_热门标签_OSCPHP_怿朴的博客<?php endif; ?>
-<?php if((MODULE_NAME== 'Archive') and ($read["title"] != null) ): echo ($read["title"]); ?>_WEB开发_OSCPHP_怿朴的博客<?php endif; ?>
-<?php if((MODULE_NAME== 'Archive') and ($read["title"] == null) ): echo (ACTION_NAME); ?>_WEB开发_OSCPHP_怿朴的博客<?php endif; ?>
-<?php if(MODULE_NAME== 'Index'): ?>怿朴的博客_OSCPHP<?php endif; ?>
-<?php if(MODULE_NAME== 'Message'): ?>留言_OSCPHP_怿朴的博客<?php endif; ?>
-<?php if((MODULE_NAME== 'Photo')): echo (ACTION_NAME); ?>_WEB开发_OSCPHP_怿朴的博客<?php endif; ?>
+<?php if(MODULE_NAME== 'Tag'): echo (ACTION_NAME); ?>_热门标签_<?php echo (C("WEBNAME")); endif; ?>
+<?php if((MODULE_NAME== 'Archive') and ($read["title"] != null) ): echo ($read["title"]); ?>_WEB开发_<?php echo (C("WEBNAME")); endif; ?>
+<?php if((MODULE_NAME== 'Archive') and ($read["title"] == null) ): echo (ACTION_NAME); ?>_WEB开发_<?php echo (C("WEBNAME")); endif; ?>
+<?php if(MODULE_NAME== 'Index'): echo (C("WEBTITLE")); endif; ?>
+<?php if(MODULE_NAME== 'Message'): ?>留言_<?php echo (C("WEBNAME")); endif; ?>
+<?php if((MODULE_NAME== 'Photo')): echo (ACTION_NAME); ?>_珍贵影像_<?php echo (C("WEBNAME")); endif; ?>
 </title>
 <link href="__PUBLIC__/Home/css/style.css" type=text/css rel=stylesheet>
 <link href="__PUBLIC__/Css/SyntaxHighlighter/shCore.css" type=text/css rel=stylesheet>
