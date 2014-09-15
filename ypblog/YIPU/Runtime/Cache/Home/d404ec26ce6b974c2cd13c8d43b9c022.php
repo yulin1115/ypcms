@@ -10,7 +10,7 @@
 <?php if(MODULE_NAME== 'Tag'): echo (ACTION_NAME); ?>_热门标签_<?php echo (C("WEBNAME")); endif; ?>
 <?php if((MODULE_NAME== 'Archive') and ($read["title"] != null) ): echo ($read["title"]); ?>_WEB开发_<?php echo (C("WEBNAME")); endif; ?>
 <?php if((MODULE_NAME== 'Archive') and ($read["title"] == null) ): echo (ACTION_NAME); ?>_WEB开发_<?php echo (C("WEBNAME")); endif; ?>
-<?php if(MODULE_NAME== 'Index'): echo (C("WEBNAME")); endif; ?>
+<?php if(MODULE_NAME== 'Index'): echo (C("WEBTITLE")); endif; ?>
 <?php if(MODULE_NAME== 'Message'): ?>留言_<?php echo (C("WEBNAME")); endif; ?>
 <?php if((MODULE_NAME== 'Photo')): echo (ACTION_NAME); ?>_珍贵影像_<?php echo (C("WEBNAME")); endif; ?>
 </title>
@@ -295,10 +295,8 @@ a.tag:hover em {color:#fff;}
        <div style=" width:100%; text-align:center; margin-top:10px;">
        <ul style="text-align:center; margin-left:0px; margin-bottom:0px; padding-left:0px;">
         <li style=" margin-left:10px; display:inline; color:#8A8A8A">友情链接：</li>
-        <li style=" margin-left:10px; display:inline"><a href="http://www.welwm.com/" target="_blank">我饿啦外卖</a></li>
         <li style=" margin-left:10px;display:inline"><a href="http://www.php100.com/" target="_blank">PHP100中文网</a></li>
         <li style=" margin-left:10px;display:inline"><a href="http://www.oschina.net/" target="_blank">开源中国社区</a></li>
-        <li style=" margin-left:10px;display:inline"><a href="http://www.youku.com/" target="_blank">优酷</a></li>
         <li style= "margin-left:10px;display:inline"><a href="http://www.bbstc.cn/" target="_blank">烟雨江南</a></li>
         <li style=" margin-left:10px;display:inline"><a href="http://www.3736.net/" target="_blank">江南大学山起山落</a></li>
         <div style=" clear:both"></div>

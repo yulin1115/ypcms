@@ -6,13 +6,13 @@ return array (
   'KEYWORDS' => 'Thinkphp博客,PHP教程,PHP博客下载',
   'MAX_SIZE' => '500000',
   'SAFETY_TIME' => '360000',
-  'THUMB_MAX_HEIGHT' => '300,50',
-  'THUMB_MAX_WIDTH' => '213,50',
+  'THUMB_MAX_HEIGHT' => '500,50',
+  'THUMB_MAX_WIDTH' => '500,50',
   'THUMB_PREFIX' => 'm_,s_',
   'URL_HTML_SUFFIX' => 'html',
   'URL_MODEL' => '2',
   'WEBNAME' => '怿朴的博客',
   'WEBTITLE' => 'Thinkphp博客,PHP教程,PHP博客下载-怿朴的博客',
-  'WEB_LIST' => '/yipu/',
+  'WEB_LIST' => '/',
 );
 ?>
