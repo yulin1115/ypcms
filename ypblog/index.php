@@ -16,4 +16,5 @@
 	//echo __ROOT__;
 	//if(!ini_get('zlib.output_compression') && C('OUTPUT_ENCODE')) ob_start('ob_gzhandler');
     //App::run();
+    //ss
 ?>
